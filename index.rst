@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Python并发编程
+Python并行编程
 ===================================================================
 
 .. toctree::
