@@ -173,5 +173,6 @@ texinfo_documents = [
 rst_epilog = """
 
 .. |how| replace:: 如何做...
+.. |ready| replace:: 准备
 
 """
