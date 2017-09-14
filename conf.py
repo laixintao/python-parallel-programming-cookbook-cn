@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+
+from __future__ import unicode_literals
 #
 # python-parallel-programming-cookbook-cn documentation build configuration file, created by
 # sphinx-quickstart on Wed Sep 13 16:33:44 2017.
@@ -63,7 +65,7 @@ release = u'1.0'
 #
 # This is also used if you do content translation via gettext catalogs.
 # Usually you set "language" from the command line for these cases.
-language = 'cn'
+language = 'zh_CN'
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
@@ -168,4 +170,8 @@ texinfo_documents = [
 ]
 
 
+rst_epilog = """
 
+.. |how| replace:: 如何做...
+
+"""
