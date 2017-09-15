@@ -32,7 +32,7 @@ from __future__ import unicode_literals
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = []
+extensions = ['rst2pdf.pdfbuilder']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -169,6 +169,11 @@ texinfo_documents = [
      'Miscellaneous'),
 ]
 
+pdf_documents = [
+    (master_doc, 'Python并行编程', u'python-parallel-programming-cookbook-cn Documentation',
+     author, 'python-parallel-programming-cookbook-cn', 'One line description of project.',
+     'laixintao'),
+]
 
 rst_epilog = """
 
