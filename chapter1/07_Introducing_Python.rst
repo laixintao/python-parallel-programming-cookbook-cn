@@ -139,7 +139,7 @@ Python可以从这里下载：https://www.python.org/downloads/
 		>>> log(1)
 		0.0
 
-- 定义类：::
+- 定义类： ::
 
 		>>> class Complex:
 		... def __init__(self, realpart, imagpart):
