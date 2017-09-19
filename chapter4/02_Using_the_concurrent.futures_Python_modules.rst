@@ -121,4 +121,51 @@ Executor是抽象类，可以通过子类访问，即线程或进程的 ``Execut
 |work|
 ------
 
+我们创建了一个list存放10个数字，然后使用一个循环计算从1加到10000000，打印出和与 ``number_list`` 的乘积。::
 
+        def evaluate_item(x):
+            # 计算总和，这里只是为了消耗时间
+            result_item = count(x)
+            # 打印输入和输出结果
+            print ("item " + str(x) + " result " + str(result_item))
+
+        def  count(number) :
+            for i in range(0, 10000000):
+                i=i+1
+            return i * number
+
+在主要程序中，我们先使用顺序执行跑了一次程序：::
+
+
+        if __name__ == "__main__":
+            # 顺序执行
+            start_time = time.clock()
+            for item in number_list:
+                evaluate_item(item)
+            print("Sequential execution in " + str(time.clock() - start_time), "seconds")
+
+然后，我们使用了 ``futures.ThreadPoolExecutor`` 模块的线程池跑了一次：::
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
+        for item in number_list:
+            executor.submit(evaluate_item,  item)
+    print ("Thread pool execution in " + str(time.clock() - start_time_1), "seconds")
+
+``ThreadPoolExecutor`` 使用线程池中的一个线程执行给定的任务。池中一共有5个线程，每一个线程从池中取得一个任务然后执行它。当任务执行完成，再从池中拿到另一个任务。
+
+当所有的任务执行完成后，打印出执行用的时间：::
+
+    print ("Thread pool execution in " + str(time.clock() - start_time_1), "seconds")
+
+最后，我们又用 ``ProcessPoolExecutor`` 跑了一次程序：::
+
+    with concurrent.futures.ProcessPoolExecutor(max_workers=5) as executor:
+        for item in number_list:
+            executor.submit(evaluate_item,  item)
+
+如同 ``ThreadPoolExecutor`` 一样， ``ProcessPoolExecutor`` 是一个executor，使用一个线程池来并行执行任务。然而，和 ``ThreadPoolExecutor`` 不同的是， ``ProcessPoolExecutor`` 使用了多核处理的模块，让我们可以不受GIL的限制，大大缩短执行时间。
+
+|more|
+------
+
+几乎所有需要处理多个客户端请求的服务应用都会使用池。然而，也有一些应用要求任务需要立即执行，或者要求对任务的线程有更多的控制权，这种情况下，池不是一个最佳选择。

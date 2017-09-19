@@ -179,5 +179,6 @@ rst_epilog = """
 .. |how| replace:: 如何做...
 .. |ready| replace:: 准备
 .. |work| replace:: 讨论
+.. |more| replace:: 了解更多
 
 """
