@@ -39,7 +39,7 @@ Asyncio提供了一下方法来管理事件循环：
 |how|
 -----
 
-下面的代码中，我们将展示如何使用Asyncio库提供的时间循环创建异步模式的应用。::
+下面的代码中，我们将展示如何使用Asyncio库提供的时间循环创建异步模式的应用。 ::
 
         import asyncio
         import datetime
@@ -64,7 +64,7 @@ Asyncio提供了一下方法来管理事件循环：
             if (loop.time() + 1.0) < end_time:
                 loop.call_later(1, function_1, end_time, loop)
             else:
-        loop.stop()
+                loop.stop()
 
         def function_4(end_time, loop):
             print ("function_5 called")
@@ -100,3 +100,44 @@ Asyncio提供了一下方法来管理事件循环：
 在这个例子中，我们定义了三个异步的任务，相继执行，入下图所示的顺序。
 
 .. image:: ../images/task-execution.png
+
+首先，我们要得到这个事件循环：::
+
+    loop = asyncio.get_event_loop()
+
+然后我们通过 ``call_soon`` 方法调用了 ``function_1()`` 函数。 ::
+
+    end_loop = loop.time() + 9.0
+    loop.call_soon(function_1, end_loop, loop)
+
+让我们来看一下 ``function_1()`` 的定义：::
+
+        def function_1(end_time, loop):
+            print ("function_1 called")
+            if (loop.time() + 1.0) < end_time:
+                loop.call_later(1, function_2, end_time, loop)
+            else:
+                loop.stop()
+
+这个函数通过以下参数定义了应用的异步行为：
+
+- ``end_time``: 定义了 ``function_1()`` 可以运行的最长时间，并通过 ``call_later`` 方法传入到 ``function_2()`` 中作为参数
+- ``loop``: 之前通过 ``get_event_loop()`` 方法得到的事件循环
+
+``function_1()`` 的任务非常简单，只是打印出函数名字。当然，里面也可以写非常复杂的操作。 ::
+
+     print ("function_1 called")
+
+任务执行结束之后，它将会比较 ``loop.time()`` +1s和设定的运行时间，如果没有超过，使用 ``call_later`` 在1秒之后执行 ``function_2()`` 。 ::
+
+    if (loop.time() + 1.0) < end_time:
+        loop.call_later(1, function_2, end_time, loop)
+    else:
+        loop.stop()
+
+``function_2()`` 和 ``function_3()`` 的作用类似。
+
+如果运行的时间超过了设定，时间循环终止。 ::
+
+    loop.run_forever()
+    loop.close()
