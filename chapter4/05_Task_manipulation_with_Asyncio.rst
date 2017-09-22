@@ -8,7 +8,46 @@ Asyncio是用来处理事件循环中的异步进程和并发任务执行的。�
 
 Asyncio模块为我们提供了 ``asyncio.Task(coroutine)`` 方法来处理计算任务，它可以调度协程的执行。任务对协程对象在事件循环的执行负责。如果被包裹的协程要从future yield，那么任务会被挂起，等待future的计算结果。
 
-当future计算完成，被包裹的协程将会拿到future返回的结果或异常（exception）继续执行。另外，需要注意的是，事件循环一次只能运行一个任务，除非还有其它事件循环在不同的线程并行运行，此任务才有可能和其他任务并行。当一个任务在等待future执行的期间，事件循环会运行一个新的任务。
+当future计算完成，被包裹的协程将会拿到future返回的结果或异常（exception）继续执行。另外，需要注意的是，事件循环一次只能运行一个任务，除非还有其它事件循环在不同的线程并行运行，此任务才有可能和其他任务并行。当一个任务在等待future执行的期间，事件循环会运行一个新的任务。 ::
+
+    """
+    Asyncio using Asyncio.Task to execute three math function in parallel
+    """
+    import asyncio
+    @asyncio.coroutine
+    def factorial(number):
+        f = 1
+        for i in range(2, number + 1):
+            print("Asyncio.Task: Compute factorial(%s)" % (i))
+            yield from asyncio.sleep(1)
+            f *= i
+        print("Asyncio.Task - factorial(%s) = %s" % (number, f))
+
+    @asyncio.coroutine
+    def fibonacci(number):
+        a, b = 0, 1
+        for i in range(number):
+            print("Asyncio.Task: Compute fibonacci (%s)" % (i))
+            yield from asyncio.sleep(1)
+            a, b = b, a + b
+        print("Asyncio.Task - fibonacci(%s) = %s" % (number, a))
+
+    @asyncio.coroutine
+    def binomialCoeff(n, k):
+        result = 1
+        for i in range(1, k+1):
+            result = result * (n-i+1) / i
+            print("Asyncio.Task: Compute binomialCoeff (%s)" % (i))
+            yield from asyncio.sleep(1)
+        print("Asyncio.Task - binomialCoeff(%s , %s) = %s" % (n, k, result))
+
+    if __name__ == "__main__":
+        tasks = [asyncio.Task(factorial(10)),
+                 asyncio.Task(fibonacci(10)),
+                 asyncio.Task(binomialCoeff(20, 10))]
+        loop = asyncio.get_event_loop()
+        loop.run_until_complete(asyncio.wait(tasks))
+        loop.close()
 
 |how|
 -----
@@ -55,4 +94,37 @@ Asyncio模块为我们提供了 ``asyncio.Task(coroutine)`` 方法来处理计�
 |work|
 ------
 
+在这个例子中，我们定义了三个协程， ``factorial``, ``fibonacci`` 和 ``binomialCoeff`` ，每一个都带有 ``asyncio.coroutine`` 装饰器： ::
 
+    @asyncio.coroutine
+    def factorial(number):
+        do Something
+
+    @asyncio.coroutine
+    def fibonacci(number):
+        do Something
+
+    @asyncio.coroutine
+    def binomialCoeff(n, k):
+        do Something
+
+为了能并行执行这三个任务，我们将其放到一个task的list中： ::
+
+    if __name__ == "__main__":
+        tasks = [asyncio.Task(factorial(10)),
+                 asyncio.Task(fibonacci(10)),
+                 asyncio.Task(binomialCoeff(20, 10))]
+
+得到事件循环： ::
+
+        loop = asyncio.get_event_loop()
+
+然后运行任务： ::
+
+        loop.run_until_complete(asyncio.wait(tasks))
+
+这里， ``asyncio.wait(tasks)`` 表示运行直到所有给定的协程都完成。
+
+最后，关闭事件循环：  ::
+
+        loop.close()
