@@ -28,6 +28,169 @@ yield表示协程在此暂停，并且将执行权交给其他协程。因为协
 
 在这个例子中，我们将看到如何使用Asyncio的协程来模拟有限状态机。有限状态机(finite state machine or automaton, FSA)是一个数据血腥，不仅在工程领域应用广泛，在科学领域也很著名，例如数学和计算机科学等。我们要模拟的状态机如下图所示：
 
-.. images:: ../images/finite-state-machine.png
+.. image:: ../images/finite-state-machine.png
 
-在上图中，可以看到我们的系统有 **S1**, **S2****, **S3**, **S4** 四个状态, **0** 和 **1** 是状态机可以从一个状态到另一个状态的值（这个过程叫做转换）。例如在本实验中，只有当只为1的时候， **S0** 可以转换到 **S1** ，当只为0的时候， **S0** 可以转换到 **S2** .Python代码如下，状态模拟从 **S0** 开始，叫做 **初始状态** ，最后到 **S4** ，叫做 **结束状态** 。
+在上图中，可以看到我们的系统有 **S1**, **S2****, **S3**, **S4** 四个状态, **0** 和 **1** 是状态机可以从一个状态到另一个状态的值（这个过程叫做转换）。例如在本实验中，只有当只为1的时候， **S0** 可以转换到 **S1** ，当只为0的时候， **S0** 可以转换到 **S2** .Python代码如下，状态模拟从 **S0** 开始，叫做 **初始状态** ，最后到 **S4** ，叫做 **结束状态** 。 ::
+
+        # Asyncio Finite State Machine
+        import asyncio
+        import time
+        from random import randint
+
+
+        @asyncio.coroutine
+        def StartState():
+            print("Start State called \n")
+            input_value = randint(0, 1)
+            time.sleep(1)
+            if (input_value == 0):
+                result = yield from State2(input_value)
+            else:
+                result = yield from State1(input_value)
+            print("Resume of the Transition : \nStart State calling " + result)
+
+        @asyncio.coroutine
+        def State1(transition_value):
+            outputValue =  str("State 1 with transition value = %s \n" % transition_value)
+            input_value = randint(0, 1)
+            time.sleep(1)
+            print("...Evaluating...")
+            if input_value == 0:
+                result = yield from State3(input_value)
+            else :
+                result = yield from State2(input_value)
+            result = "State 1 calling " + result
+            return outputValue + str(result)
+
+        @asyncio.coroutine
+        def State2(transition_value):
+            outputValue =  str("State 2 with transition value = %s \n" % transition_value)
+            input_value = randint(0, 1)
+            time.sleep(1)
+            print("...Evaluating...")
+            if (input_value == 0):
+                result = yield from State1(input_value)
+            else :
+                result = yield from State3(input_value)
+            result = "State 2 calling " + result
+            return outputValue + str(result)
+
+        @asyncio.coroutine
+        def State3(transition_value):
+            outputValue = str("State 3 with transition value = %s \n" % transition_value)
+            input_value = randint(0, 1)
+            time.sleep(1)
+            print("...Evaluating...")
+            if (input_value == 0):
+                result = yield from State1(input_value)
+            else :
+                result = yield from EndState(input_value)
+            result = "State 3 calling " + result
+            return outputValue + str(result)
+
+        @asyncio.coroutine
+        def EndState(transition_value):
+            outputValue = str("End State with transition value = %s \n" % transition_value)
+            print("...Stop Computation...")
+            return outputValue
+
+        if __name__ == "__main__":
+            print("Finite State Machine simulation with Asyncio Coroutine")
+            loop = asyncio.get_event_loop()
+            loop.run_until_complete(StartState())
+
+运行代码，我们可以看到类似以下输出（译注，运行结果随机，这里给我译者运行的三次结果）. ::
+
+		$ python3 coroutines.py
+		Finite State Machine simulation with Asyncio Coroutine
+		Start State called
+
+		...Evaluating...
+		...Evaluating...
+		...Evaluating...
+		...Evaluating...
+		...Evaluating...
+		...Evaluating...
+		...Stop Computation...
+		Resume of the Transition :
+		Start State calling State 2 with transition value = 0
+		State 2 calling State 1 with transition value = 0
+		State 1 calling State 2 with transition value = 1
+		State 2 calling State 1 with transition value = 0
+		State 1 calling State 2 with transition value = 1
+		State 2 calling State 3 with transition value = 1
+		State 3 calling End State with transition value = 1
+
+		$ python3 coroutines.py
+		Finite State Machine simulation with Asyncio Coroutine
+		Start State called
+
+		...Evaluating...
+		...Evaluating...
+		...Stop Computation...
+		Resume of the Transition :
+		Start State calling State 2 with transition value = 0
+		State 2 calling State 3 with transition value = 1
+		State 3 calling End State with transition value = 1
+
+		$ python3 coroutines.py
+		Finite State Machine simulation with Asyncio Coroutine
+		Start State called
+
+		...Evaluating...
+		...Evaluating...
+		...Evaluating...
+		...Evaluating...
+		...Evaluating...
+		...Evaluating...
+		...Evaluating...
+		...Stop Computation...
+		Resume of the Transition :
+		Start State calling State 1 with transition value = 1
+		State 1 calling State 2 with transition value = 1
+		State 2 calling State 1 with transition value = 0
+		State 1 calling State 3 with transition value = 0
+		State 3 calling State 1 with transition value = 0
+		State 1 calling State 2 with transition value = 1
+		State 2 calling State 3 with transition value = 1
+		State 3 calling End State with transition value = 1 
+
+|work|
+------
+
+每一个状态都由装饰器装饰： ::
+
+    @asyncio.coroutine
+
+例如， **S0** 的定义如下所示： ::
+
+        @asyncio.coroutine
+        def StartState():
+            print("Start State called \n")
+            input_value = randint(0, 1)
+            time.sleep(1)
+            if (input_value == 0):
+                result = yield from State2(input_value)
+            else:
+                result = yield from State1(input_value)
+            print("Resume of the Transition : \nStart State calling " + result)
+
+通过 ``random`` 模块的 ``randint(0, 1)`` 函数生成了 ``input_value`` 的值，决定了下一个转换状态。此函数随机生成1或0： ::
+
+    input_value = randint(0, 1)
+
+得到 ``input_value`` 的值之后，通过 ``yield from`` 命令调用下一个协程。 ::
+
+     if (input_value == 0):
+         result = yield from State2(input_value)
+     else:
+         result = yield from State1(input_value)
+
+``result`` 是下一个协程返回的string，这样我们在计算的最后就可以重新构造出计算过程。
+
+启动事件循环的代码如下： ::
+
+        if __name__ == "__main__":
+            print("Finite State Machine simulation with Asyncio Coroutine")
+            loop = asyncio.get_event_loop()
+            loop.run_until_complete(StartState())
