@@ -168,12 +168,6 @@ texinfo_documents = [
      'Miscellaneous'),
 ]
 
-pdf_documents = [
-    (master_doc, 'Python并行编程', u'python-parallel-programming-cookbook-cn Documentation',
-     author, 'python-parallel-programming-cookbook-cn', 'One line description of project.',
-     'laixintao'),
-]
-
 rst_epilog = """
 
 .. |how| replace:: 如何做...
