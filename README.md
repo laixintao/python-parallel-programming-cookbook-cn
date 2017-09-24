@@ -1,5 +1,7 @@
 # 《Python Parallel Programming Cookbok》翻译计划
 
+在线阅读：http://python-parallel-programmning-cookbook.readthedocs.io/ [![Documentation Status](https://readthedocs.org/projects/python-parallel-programmning-cookbook/badge/?version=latest)](http://python-parallel-programmning-cookbook.readthedocs.io/zh_CN/latest/?badge=latest)
+
 本书结合Python讨论了线程、进程和异步编程三种模型，是Pyhton并行编程不错的参考书籍。
 
 目前进度： 10%
