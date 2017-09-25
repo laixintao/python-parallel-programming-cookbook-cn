@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from __future__ import unicode_literals
 #
 # python-parallel-programming-cookbook-cn documentation build configuration file, created by
 # sphinx-quickstart on Wed Sep 13 16:33:44 2017.
@@ -56,6 +55,7 @@ author = u'laixintao'
 #
 # The short X.Y version.
 version = u'1.0'
+
 # The full version, including alpha/beta/rc tags.
 release = u'1.0'
 
@@ -122,20 +122,29 @@ htmlhelp_basename = 'python-parallel-programming-cookbook-cndoc'
 
 latex_elements = {
     # The paper size ('letterpaper' or 'a4paper').
-    #
-    # 'papersize': 'letterpaper',
+    #'papersize': 'letterpaper',
 
     # The font size ('10pt', '11pt' or '12pt').
-    #
-    # 'pointsize': '10pt',
+    #'pointsize': '10pt',
 
     # Additional stuff for the LaTeX preamble.
-    #
-    # 'preamble': '',
-
-    # Latex figure (float) alignment
-    #
-    # 'figure_align': 'htbp',
+    #'preamble': '',
+    'preamble': r'''
+    \hypersetup{unicode=true}
+    \usepackage{CJKutf8}
+    \DeclareUnicodeCharacter{00A0}{\nobreakspace}
+    \DeclareUnicodeCharacter{2203}{\ensuremath{\exists}}
+    \DeclareUnicodeCharacter{2200}{\ensuremath{\forall}}
+    \DeclareUnicodeCharacter{2286}{\ensuremath{\subseteq}}
+    \DeclareUnicodeCharacter{2713}{x}
+    \DeclareUnicodeCharacter{27FA}{\ensuremath{\Longleftrightarrow}}
+    \DeclareUnicodeCharacter{221A}{\ensuremath{\sqrt{}}}
+    \DeclareUnicodeCharacter{221B}{\ensuremath{\sqrt[3]{}}}
+    \DeclareUnicodeCharacter{2295}{\ensuremath{\oplus}}
+    \DeclareUnicodeCharacter{2297}{\ensuremath{\otimes}}
+    \begin{CJK}{UTF8}{gbsn}
+    \AtEndDocument{\end{CJK}}
+    ''',
 }
 
 # Grouping the document tree into LaTeX files. List of tuples
@@ -168,7 +177,7 @@ texinfo_documents = [
      'Miscellaneous'),
 ]
 
-rst_epilog = """
+rst_epilog = u"""
 
 .. |how| replace:: 如何做...
 .. |ready| replace:: 准备
