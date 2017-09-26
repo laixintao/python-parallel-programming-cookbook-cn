@@ -84,4 +84,40 @@
 |work|
 ------
 
+在主程序中，我们有以下步骤： ::
 
+    t1 = threading.Thread(target = increment_with_lock)
+    t2 = threading.Thread(target = decrement_with_lock)
+
+启动线程： ::
+
+    t1.start()
+    t2.start()
+
+然后阻塞主线程直到所有线程完成：  ::
+
+    t1.join()
+    t2.join()
+    
+在 ``increment_with_lock()`` 函数和 ``decrement_with_lock()`` 函数中，可以看到我们使用了lock语句。当你需要使用资源的时候，调用 ``acquire()`` 拿到锁（如果锁暂时不可用，会一直等待直到拿到），最后调用 ``release()``:  ::
+
+        shared_resource_lock.acquire()
+        shared_resource_with_lock -= 1
+        shared_resource_lock.release()
+
+让我们总结一下：
+
+- 锁有两种状态： locked（被某一线程拿到）和unlocked（可用状态）
+- 我们有两个方法来操作锁： ``acquire()`` 和 ``release()``
+
+需要遵循以下规则：
+
+- 如果状态是unlocked， 可以调用 ``acquire()`` 将状态改为locked
+- 如果状态是locked， ``acquire()`` 会被block直到另一线程调用 ``release()`` 释放锁
+- 如果状态是unlocked， 调用 ``release()`` 将导致 ``RuntimError`` 异常
+- 如果状态是locked， 可以调用 ``release()`` 将状态改为unlocked
+
+|more|
+------
+
+尽管理论上行得通，但是锁的策略不仅会导致有害的僵持局面。还会对应用程序的其他方面产生负面影响。这是一种保守的方法，经常会引起不必要的开销，也会限制程序的可扩展性和可读性。更重要的是，有时候需要对多进程共享的内存分配优先级，使用锁可能和这种优先级冲突。最后，从实践的经验来看，使用锁的应用将对debug带来不小的麻烦。所以，最好使用其他可选的方法确保同步读取共享内存，避免竞争条件。
