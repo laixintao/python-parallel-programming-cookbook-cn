@@ -84,4 +84,21 @@
 
     semaphore.release()
    
+信号量的 ``release()`` 可以提高计数器然后通知其他的线程。同样的， ``consumer()`` 方法可以通过下面的方法拿到资源： ::
 
+    semaphore.acquire()
+
+如果信号量的计数器到了0，就会阻塞 ``acquire()`` 方法，直到得到另一个线程的通知。如果信号量的计数器大于0，就会对这个值-1然后分配资源。
+
+最后，拿到数据并打印输出： ::
+
+    print("Consumer notify : consumed item number %s " % item)
+
+|more|
+------
+
+信号量的一个特殊用法是互斥量。互斥量是初始值为1的信号量，可以实现数据、资源的互斥访问。
+
+信号量在支持多线程的编程语言中依然应用很广，然而这可能导致死锁的情况。例如，现在有一个线程t1在等待信号量s1，线程t2在等待信号量s1，然后t1等待s2和t2，然后等待s1. （译者注：说实话这段话我怎么也看不懂，贴出原文有高手能看懂欢迎告诉我……）
+
+Semaphores are still commonly used in programming languages that are multithreaded; however, using them you can run into situations of deadlock. For example, there is a deadlock situation created when the thread t1 executes a wait on the semaphore s1, while the t2 thread executes a wait on the semaphore s1, and then t1, and then executes a wait on s2 and t2, and then executes a wait on s1.
