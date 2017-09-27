@@ -7,3 +7,4 @@
 Parallel    并行
 encapsulate 封装
 concurrent  并发
+semaphores  信号量
