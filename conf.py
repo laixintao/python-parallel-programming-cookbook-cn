@@ -180,7 +180,7 @@ texinfo_documents = [
 rst_epilog = u"""
 
 .. |how| replace:: 如何做...
-.. |ready| replace:: 准备
+.. |ready| replace:: 准备工作
 .. |work| replace:: 讨论
 .. |more| replace:: 了解更多
 
