@@ -15,7 +15,6 @@ class Box(object):
     def add(self):
         Box.lock.acquire()
         self.execute(1)
-        Box.lock.release()
 
     def remove(self):
         Box.lock.acquire()
@@ -28,14 +27,14 @@ def adder(box, items):
     while items > 0:
         print("adding 1 item in the box")
         box.add()
-        time.sleep(5)
+        time.sleep(1)
         items -= 1
 
 def remover(box, items):
     while items > 0:
         print("removing 1 item in the box")
         box.remove()
-        time.sleep(5)
+        time.sleep(1)
         items -= 1
  
 ## the main program build some
