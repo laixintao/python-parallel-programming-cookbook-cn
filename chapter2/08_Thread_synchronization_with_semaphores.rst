@@ -76,4 +76,12 @@
 |work|
 ------
 
+信号量被初始化为0，此信号量唯一的目的是同步两个或多个线程。在这里，我们的线程必须并行运行，所以需要信号量同步： ::
+
+        semaphore = threading.Semaphore(0)
+
+这个操作和lock中的机制非常相似， ``producer()`` 完成创建item之后，释放资源： ::
+
+    semaphore.release()
+   
 
