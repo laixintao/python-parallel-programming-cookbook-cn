@@ -1,2 +1,124 @@
 使用条件进行线程同步
 ====================
+
+条件指的是应用程序状态的改变。这是另一种同步机制，其中某些线程在等待某一条件发生，其他的线程会在该条件发生的时候进行通知。一旦条件发生，线程会拿到共享资源的唯一权限。
+
+|ready|
+-------
+
+解释条件机制最好的例子还是生产者-消费者问题。在本例中，只要缓存不满，生产者一直向缓存生产；只要缓存不空，消费者一直从缓存取出（之后销毁）。当缓冲队列不为空的时候，生产者将通知消费者；当缓冲队列不满的时候，消费者将通知生产者。
+
+|how|
+-----
+
+为了演示条件机制，我们将再一次使用生产者-消费者的例子： ::
+
+        from threading import Thread, Condition
+        import time
+
+        items = []
+        condition = Condition()
+
+        class consumer(Thread):
+
+            def __init__(self):
+                Thread.__init__(self)
+
+            def consume(self):
+                global condition
+                global items
+                condition.acquire()
+                if len(items) == 0:
+                    condition.wait()
+                    print("Consumer notify : no item to consume")
+                items.pop()
+                print("Consumer notify : consumed 1 item")
+                print("Consumer notify : items to consume are " + str(len(items)))
+
+                condition.notify()
+                condition.release()
+
+            def run(self):
+                for i in range(0,20):
+                    time.sleep(2)
+                    self.consume()
+
+        class producer(Thread):
+
+            def __init__(self):
+                Thread.__init__(self)
+
+            def produce(self):
+                global condition
+                global items
+                condition.acquire()
+                if len(items) == 10:
+                    condition.wait()
+                    print("Producer notify : items producted are " + str(len(items)))
+                    print("Producer notify : stop the production!!")
+                items.append(1)
+                print("Producer notify : total items producted " + str(len(items)))
+                condition.notify()
+                condition.release()
+
+            def run(self):
+                for i in range(0,20):
+                    time.sleep(1)
+                    self.produce()
+
+        if __name__ == "__main__":
+            producer = producer()
+            consumer = consumer()
+            producer.start()
+            consumer.start()
+            producer.join()
+            consumer.join()
+
+运行的结果如下：
+
+.. image:: ../images/Page-75-Image-12.png
+
+|work|
+------
+
+消费者通过拿到锁来修改共享的资源 ``items[]`` ： ::
+
+        condition.acquire()
+
+如果list的长度为0，那么消费者就进入等待状态： ::
+
+        if len(items) == 0:
+            condition.wait()
+
+否则就通过 ``pop`` 操作消费一个item： ::            
+
+        items.pop()
+
+然后，消费者的状态被通知给生产者，同时共享资源释放： ::
+
+        condition.notify()
+        condition.release()
+
+生产者拿到共享资源，然后确认缓冲队列是否已满（在我们的这个例子中，最大可以存放10个item），如果已经满了，那么生产者进入等待状态，知道被唤醒： ::
+
+        condition.acquire()
+        if len(items) == 10:
+            condition.wait()
+    
+如果队列没有满，就生产1个item，通知状态并释放资源： ::
+
+        condition.notify()
+        condition.release()
+
+|more|
+------
+
+Python对条件同步的实现很有趣。如果没有变量传给构造器的话，内部的 ``_Condition`` 会创建一个 ``RLock()`` 对象。同事，这个RLock也会通过 ``acquire()`` 和 ``release()`` 管理： ::
+
+    class _Condition(_Verbose):
+        def __init__(self, lock=None, verbose=None):
+            _Verbose.__init__(self, verbose)
+            if lock is None:
+               lock = RLock()
+            self.__lock = lock
+
