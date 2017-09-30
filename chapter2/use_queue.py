@@ -2,6 +2,7 @@ from threading import Thread, Event
 from queue import Queue
 import time
 import random
+
 class producer(Thread):
     def __init__(self, queue):
         Thread.__init__(self)
