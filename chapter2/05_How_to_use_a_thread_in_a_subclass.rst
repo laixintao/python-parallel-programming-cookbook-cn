@@ -34,6 +34,9 @@
     def print_time(threadName, delay, counter):
         while counter:
             if exitFlag:
+                # 译者注：原书中使用的thread，但是Python3中已经不能使用thread，以_thread取代，因此应该
+                # import _thread
+                # _thread.exit()
                 thread.exit()
             time.sleep(delay)
             print("%s: %s" % (threadName, time.ctime(time.time())))
