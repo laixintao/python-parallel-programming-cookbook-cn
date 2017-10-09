@@ -39,7 +39,7 @@
                 condition.release()
 
             def run(self):
-                for i in range(0,20):
+                for i in range(0, 20):
                     time.sleep(2)
                     self.consume()
 
@@ -62,7 +62,7 @@
                 condition.release()
 
             def run(self):
-                for i in range(0,20):
+                for i in range(0, 20):
                     time.sleep(1)
                     self.produce()
 
@@ -113,7 +113,7 @@
 |more|
 ------
 
-Python对条件同步的实现很有趣。如果没有变量传给构造器的话，内部的 ``_Condition`` 会创建一个 ``RLock()`` 对象。同事，这个RLock也会通过 ``acquire()`` 和 ``release()`` 管理： ::
+Python对条件同步的实现很有趣。如果没有已经存在的锁传给构造器的话，内部的 ``_Condition`` 会创建一个 ``RLock()`` 对象。同时，这个RLock也会通过 ``acquire()`` 和 ``release()`` 管理： ::
 
     class _Condition(_Verbose):
         def __init__(self, lock=None, verbose=None):
