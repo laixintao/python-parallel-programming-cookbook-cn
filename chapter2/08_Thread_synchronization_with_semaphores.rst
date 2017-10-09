@@ -99,6 +99,4 @@
 
 信号量的一个特殊用法是互斥量。互斥量是初始值为1的信号量，可以实现数据、资源的互斥访问。
 
-信号量在支持多线程的编程语言中依然应用很广，然而这可能导致死锁的情况。例如，现在有一个线程t1在等待信号量s1，线程t2在等待信号量s1，然后t1等待s2和t2，然后等待s1. （译者注：说实话这段话我怎么也看不懂，贴出原文有高手能看懂欢迎告诉我……）P.S. 应该说的就是线程t1在等待信号量s1，然后会等待信号量s2，然后线程t2会先等待信号量s2，然后再等待信号量s1，这样就会发生死锁。也就是作者说的t1等待s2和t2吧，但是t2在等待s1。
-
-Semaphores are still commonly used in programming languages that are multithreaded; however, using them you can run into situations of deadlock. For example, there is a deadlock situation created when the thread t1 executes a wait on the semaphore s1, while the t2 thread executes a wait on the semaphore s1, and then t1, and then executes a wait on s2 and t2, and then executes a wait on s1.
+信号量在支持多线程的编程语言中依然应用很广，然而这可能导致死锁的情况。例如，现在有一个线程t1先等待信号量s1，然后等待信号量s2，而线程t2会先等待信号量s2，然后再等待信号量s1，这样就可能会发生死锁，导致t1等待s2，但是t2在等待s1。
