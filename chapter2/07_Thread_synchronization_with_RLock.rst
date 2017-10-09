@@ -3,7 +3,7 @@
 
 如果你想让只有拿到锁的线程才能释放该锁，那么应该使用 ``RLock()`` 对象。和 ``Lock()`` 对象一样， ``RLock()`` 对象有两个方法： ``acquire()`` 和 ``release()`` 。当你需要在类外面保证线程安全，又要在类内使用同样方法的时候 ``RLock()`` 就很实用了。
 
-（译者注：RLock原作解释的太模糊了，译者在此擅自添加一段。RLock其实叫做“Renntrant Lock”，就是可以重复进入的锁，也叫做“递归锁”。这种锁对比Lock有是三个特点：1. 谁拿到谁释放。如果线程A拿到锁，线程B无法释放这个锁，只有A可以释放；2. 同一线程可以多次拿到该锁，即可以acquire多次；3. acquire多少次就必须release多少次，只有最后一次release才能改变RLock的状态为unlocked）
+（译者注：RLock原作解释的太模糊了，译者在此擅自添加一段。RLock其实叫做“Reentrant Lock”，就是可以重复进入的锁，也叫做“递归锁”。这种锁对比Lock有是三个特点：1. 谁拿到谁释放。如果线程A拿到锁，线程B无法释放这个锁，只有A可以释放；2. 同一线程可以多次拿到该锁，即可以acquire多次；3. acquire多少次就必须release多少次，只有最后一次release才能改变RLock的状态为unlocked）
 
 |how|
 -----
@@ -27,6 +27,7 @@
             def add(self):
                 Box.lock.acquire()
                 self.execute(1)
+                Box.lock.release()
 
             def remove(self):
                 Box.lock.acquire()
