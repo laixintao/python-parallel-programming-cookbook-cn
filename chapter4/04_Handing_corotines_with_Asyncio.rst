@@ -20,13 +20,13 @@ yield表示协程在此暂停，并且将执行权交给其他协程。因为协
         import asyncio
 
         @asyncio.coroutine
-            def coroutine_function(function_arguments):
+        def coroutine_function(function_arguments):
             # DO_SOMETHING
 
 |how|
 -----
 
-在这个例子中，我们将看到如何使用Asyncio的协程来模拟有限状态机。有限状态机(finite state machine or automaton, FSA)是一个数据血腥，不仅在工程领域应用广泛，在科学领域也很著名，例如数学和计算机科学等。我们要模拟的状态机如下图所示：
+在这个例子中，我们将看到如何使用Asyncio的协程来模拟有限状态机。有限状态机(finite state machine or automaton, FSA)是一个数学模型，不仅在工程领域应用广泛，在科学领域也很著名，例如数学和计算机科学等。我们要模拟的状态机如下图所示：
 
 .. image:: ../images/finite-state-machine.png
 
@@ -99,7 +99,7 @@ yield表示协程在此暂停，并且将执行权交给其他协程。因为协
             loop = asyncio.get_event_loop()
             loop.run_until_complete(StartState())
 
-运行代码，我们可以看到类似以下输出（译注，运行结果随机，这里给我译者运行的三次结果）. ::
+运行代码，我们可以看到类似以下输出（译注，运行结果随机，这里为译者运行的三次结果）. ::
 
 		$ python3 coroutines.py
 		Finite State Machine simulation with Asyncio Coroutine
