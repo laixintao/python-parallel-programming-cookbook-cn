@@ -32,7 +32,7 @@ class Consumer(multiprocessing.Process):
                 time.sleep(1)
 
 if __name__ == '__main__':
-    queue = multiprocessing.Queue(10)
+    queue = multiprocessing.Queue()
     process_producer = Producer(queue)
     process_consumer = Consumer(queue)
     process_producer.start()
