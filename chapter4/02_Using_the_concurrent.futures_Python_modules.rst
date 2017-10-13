@@ -1,11 +1,11 @@
 使用Python的 ``concurrent.futures`` 模块
 ========================================
 
-Python3.2带来了 ``concurrent.future`` 模块，这个模块具有线程池和进程池、管理并行编程任务、处理非确定性的执行流程、进程/线程同步等功能。
+Python3.2带来了 ``concurrent.futures`` 模块，这个模块具有线程池和进程池、管理并行编程任务、处理非确定性的执行流程、进程/线程同步等功能。
 
 此模块由以下部分组成：
 
-- ``concurrent.futures.Executor``: 这是一个虚拟基类，提供了一步执行的方法。
+- ``concurrent.futures.Executor``: 这是一个虚拟基类，提供了异步执行的方法。
 - ``submit(function, argument)``: 调度函数（可调用的对象）的执行，将 ``argument`` 作为参数传入。
 - ``map(function, argument)``: 将 ``argument`` 作为参数执行函数，以 **异步** 的方式。
 - ``shutdown(Wait=True)``: 发出让执行者释放所有资源的信号。
