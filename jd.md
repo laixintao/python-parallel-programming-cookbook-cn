@@ -18,20 +18,23 @@
 
 JD
 
-Responsibility
-  •  Engage in and improve the whole lifecycle of services—from inception and design, through deployment, operation and refinement.
-  •  Support services before they go live through activities such as system design consulting, developing software platforms and frameworks, capacity planning and launch reviews.
-  •  Maintain services once they are live by measuring and monitoring availability, latency and overall system health.
-  •  Scale systems sustainably through mechanisms like automation, and evolve systems by pushing for changes that improve reliability and velocity.
-  •  Practice sustainable incident response and blameless postmortems.
+## Responsibility
 
-Application requirements
+  -  Engage in and improve the whole lifecycle of services—from inception and design, through deployment, operation and refinement.
+  -  Support services before they go live through activities such as system design consulting, developing software platforms and frameworks, capacity planning and launch reviews.
+  -  Maintain services once they are live by measuring and monitoring availability, latency and overall system health.
+  -  Scale systems sustainably through mechanisms like automation, and evolve systems by pushing for changes that improve reliability and velocity.
+  -  Practice sustainable incident response and blameless postmortems.
+
+## Application requirements
+
 Minimum qualifications:
-  •  BS degree in Computer Science or related technical field involving coding (e.g., physics or mathematics), or equivalent practical experience.
-  •  Experience in one or more of the following: C, C++, Java, Python, Go, Perl or Ruby.
-  •  Experience with Unix/Linux operating systems internals and administration or networking
 
-Preferred qualifications:
-  •  Interest in  analyzing and troubleshooting large-scale distributed systems.
-  •  Systematic problem-solving approach, coupled with strong communication skills and a sense of ownership and drive.
-  •  Ability to debug and optimize the application and automate routine tasks.
+  - BS degree in Computer Science or related technical field involving coding (e.g., physics or mathematics), or equivalent practical experience.
+  - Experience in one or more of the following: C, C++, Java, Python, Go, Perl or Ruby.
+  - Experience with Unix/Linux operating systems internals and administration or networking
+
+Prferred qualifications:
+  - Interest in  analyzing and troubleshooting large-scale distributed systems.
+  - Systematic problem-solving approach, coupled with strong communication skills and a sense of ownership and drive.
+  - Ability to debug and optimize the application and automate routine tasks.
