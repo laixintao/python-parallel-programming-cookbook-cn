@@ -11,7 +11,7 @@
 
 在Python多进程的官方文档中，明确指出 ``multiprocessing`` 模块要求，使用此模块的函数的main模块对子类来说必须是可导入的（ https://docs.python.org/3.3/library/multiprocessing.html ）。
 
-``__main__`` 在IELE中并不是可以导入的，即使你在IDLE中将文件当做一个脚本来运行。为了能正确使用此模块，本章我们将在命令行使用下面的命令运行脚本： ::
+``__main__`` 在IDLE中并不是可以导入的，即使你在IDLE中将文件当做一个脚本来运行。为了能正确使用此模块，本章我们将在命令行使用下面的命令运行脚本： ::
 
     python multiprocessing example.py
 
