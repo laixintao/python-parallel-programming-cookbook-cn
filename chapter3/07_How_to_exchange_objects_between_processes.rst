@@ -135,7 +135,7 @@
 - ``task_done()``: 此方法意味着之前入队的一个任务已经完成，比如， ``get()`` 方法从队列取回item之后调用。所以此方法只能被队列的消费者调用。
 - ``join()``: 此方法将进程阻塞，直到队列中的item全部被取出并执行。
 
-（ `Microndgt <https://github.com/laixintao/python-parallel-programming-cookbook-cn/issues/17#issuecomment-335668371>`_ 注：因为使用队列进行通信是一个单向的，不确定的过程，所以你不知道什么时候队列的元素被取出来了，所以使用者者task_done来表示已经队列里的一个任务已经完成。
+（ `Microndgt <https://github.com/laixintao/python-parallel-programming-cookbook-cn/issues/17#issuecomment-335668371>`_ 注：因为使用队列进行通信是一个单向的，不确定的过程，所以你不知道什么时候队列的元素被取出来了，所以使用task_done来表示队列里的一个任务已经完成。
 
 这个方法一般和join一起使用，当队列的所有任务都处理之后，也就是说put到队列的每个任务都调用了task_done方法后，join才会完成阻塞。）
 
