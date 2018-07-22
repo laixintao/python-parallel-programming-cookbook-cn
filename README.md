@@ -30,7 +30,7 @@ Fork本仓库，翻译一小部分内容即可（例如标题），然后向本�
 
 ## 需要注意的问题(!)
 
-1. 如果使用了特殊字符可能编译 pdf 或者 epub 的过程中会出错（LaTex比较难搞），比如 https://github.com/laixintao/python-parallel-programming-cookbook-cn/commit/6ea2c41ded6020c37756022cec2dc8159bc8666b 
+1. 如果使用了特殊字符可能编译 pdf 或者 epub 的过程中会出错（LaTex比较难搞），比如[这个commit](https://github.com/laixintao/python-parallel-programming-cookbook-cn/commit/6ea2c41ded6020c37756022cec2dc8159bc8666b) 的[这个编译](http://readthedocs.org/projects/python-parallel-programmning-cookbook/builds/7524187/)就有问题。
 
 ## 阿里巴巴招聘Python
 
