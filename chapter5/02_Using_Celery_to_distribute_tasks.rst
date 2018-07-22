@@ -44,7 +44,6 @@ Celery 的用法非常简单，和显示的一样： ::
 
 显示的配置如下： ::
 
-    ➜ [parallel-test] python-parallel-programming-cookbook-cn git:(ch5) ✗ celery
     usage: celery <command> [options]
 
     Show help screen and exit.
