@@ -22,7 +22,7 @@ scatter函数和广播很像，但是有一个很大的不同， ``comm.bcast`` 
     else:
         array_to_share = None
     recvbuf = comm.scatter(array_to_share, root=0)
-    print("process = %d" %rank + " recvbuf = %d " %array_to_share)
+    print("process = %d" %rank + " recvbuf = %d " %recvbuf)
 
 运行代码的输出如下： ::
 
