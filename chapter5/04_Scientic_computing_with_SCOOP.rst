@@ -80,3 +80,59 @@ SCOOP 内置了很多适用于科学计算场景的功能，可以解决很多�
          # but it could be much greater
          pi_calculus_with_Montecarlo_Method(i*1000, i*1000)
          print(" ")
+
+运行这短代码的命令如下： ::
+
+   python –m scoop name_file.py
+
+这段代码的输出如下： ::
+
+   C:\Python CookBook\Chapter 5 - Distributed Python\chapter 5 - codes>python -m scoop pi_calculus_with_montecarlo_method.py
+   [2015-06-01 15:16:32,685] launcher  INFO    SCOOP 0.7.2 dev on win32 using Python 3.3.0 (v3.3.0:bd8afb90ebf2, Sep 29 2012, 10:55:48) [MSC v.1600 32 bit (Intel)], API: 1013
+   [2015-06-01 15:16:32,685] launcher  INFO Deploying 2 worker(s) over 1 host(s).
+   [2015-06-01 15:16:32,685] launcher  INFO Worker d--istribution:
+   [2015-06-01 15:16:32,686] launcher  INFO 127.0.0.1:1 + origin
+   Launching 2 worker(s) using an unknown shell.
+   number of workers 1000 - number of attempts 1000
+   785 points fallen in a unit disk after
+   value of pi = 3.140636
+   error percentage = 0.03045122952842962
+   total time: 10.258585929870605
+
+   number of workers 2000 - number of attempts 2000
+   1570 points fallen in a unit disk after
+   value of pi = 3.141976
+   error percentage = 0.012202295220195048
+   total time: 20.451170206069946
+
+   number of workers 3000 - number of attempts 3000
+   2356 points fallen in a unit disk after
+   value of pi = 3.1413777777777776
+   error percentage = 0.006839709526630775
+   total time: 32.3558509349823
+
+   [2015-06-01 15:17:36,894] launcher  (127.0.0.1:59239) INFO
+   process is done.
+   [2015-06-01 15:17:36,896] launcher  (127.0.0.1:59239) INFO
+   cleaning spawned subprocesses.
+
+如果我们增加 attempts 的次数和 worker 的数量，就可以提高 π 的精度。
+
+.. image:: ../images/pai.png
+
+|how|
+-----
+
+前面的代码只是蒙卡特罗方法计算 π 的一种实现。 ``evaluate_points_in_circle()`` 函数随机的产生点的坐标 ``(x, y)`` ，然后判断此点是否落在单位面积的内切圆内。
+
+每当判断点落在圆的面积内的时候， ``points_fallen_in_unit_disk`` 变量的值加 1. 当内循环结束的时候，这个值就表示最终落在圆的面积内点的数量。这个数字足够计算 pi 的值了。事实上，点落在圆内的实际概率是 π / 4 ，这是圆的面积和单位面积的比例。圆的面积是 π，单位面积是 4.
+
+最后，通过计算落在圆内的点的数量 ``taskresult`` ，和尝试的次数 ``workers * attempts`` 的比例，就可以得到 ``π / 4`` 的值，当然也就得到最终 π 的值了。 ::
+
+   piValue = (4. * Taskresult/ float(workers * attempts))
+
+SCOOP 函数如下： ::
+
+     futures.map(evaluate_points_in_circle, [attempts] * workers)
+
+这行代码会交给 SCOOP 来将计算任务分发给多个节点，并收集计算结果。它将会并发地调用 ``evaluate_points_in_circle`` 。
