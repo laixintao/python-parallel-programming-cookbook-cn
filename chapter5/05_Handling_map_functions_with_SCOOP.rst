@@ -18,3 +18,18 @@ Python 的函数 ``map(aFunction, aSequence)`` 将在序列的每一个元素上
    >>>def multiplyFor2(x):return x*2
    >>>print(list(map(multiplyFor2,items)))
    >>>[2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
+
+这里，我们将自定义的 ``multiplyFor2`` 函数传给 ``map`` . 它将对 ``items`` 中所有的元素执行此函数，最后以 list 的形式返回结果。
+
+我们也可以将 lambda 函数（不用绑定变量名的匿名函数）当做参数传给 ``map`` 函数。这段代码就变成以下这样: ::
+
+   >>>items = [1,2,3,4,5,6,7,8,9,10]
+   >>>print(list(map(lambda x:x*2,items)))
+   >>>[2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
+
+内置的 map 函数比手动写 for 循环的性能更高。
+
+|ready|
+-------
+
+
