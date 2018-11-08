@@ -41,7 +41,7 @@ SCOOP 模块提供了多个 map 函数可以将异步计算任务下发到多个
 |how|
 -----
 
-在这个例子中，我们将对比 SCOOP 实现 MapReduce 的多个版本： ::
+在这个例子中，我们将对比 SCOOP 实现 MapReduce 和 Python 内置函数实现： ::
 
     """
     Compare SCOOP MapReduce with a serial implementation
@@ -62,9 +62,9 @@ SCOOP 模块提供了多个 map 函数可以将异步计算任务下发到多个
             list([a] * a for a in range(1000)),
         )
         mapScoopTime = time.time() - mapScoopTime
-        print("futures.map in SCOOP executed in {0:.3f}s 
-               with result:{1}".format(mapScoopTime, res)
-             )
+        print("futures.map in SCOOP executed in {0:.3f}s with result:{1}".format(
+              mapScoopTime, res))
+
         mapPythonTime = time.time()
         res = sum(map(simulateWorkload, list([a] * a for a in range(1000))))
         mapPythonTime = time.time() - mapPythonTime
@@ -74,7 +74,7 @@ SCOOP 模块提供了多个 map 函数可以将异步计算任务下发到多个
     if __name__ == '__main__':
         CompareMapReduce()
 
-这段代码通过以下代码来执行： ::
+这段代码通过以下命令来执行： ::
 
     python -m scoop map_reduce.py
     > [2015-06-12 20:13:25,602] launcher  INFO    SCOOP 0.7.2 dev on win32
@@ -91,3 +91,48 @@ SCOOP 模块提供了多个 map 函数可以将异步计算任务下发到多个
     is done.
     [2015-06-12 20:13:45,368] launcher  (127.0.0.1:2559) INFO
     cleaning spawned subprocesses.
+
+|work|
+------
+
+在这个例子中，我们将 SCOOP 实现的 MapReduce 和 Python 内置函数的 MapReduce 来对比。主要的函数是 ``CompareMapReduce()`` ，里面有两种实现和对时间的统计。程序结构如下： ::
+
+    mapScoopTime = tme.time()
+    #Run SCOOP MapReduce
+    mapScoopTime = time.time() – mapScoopTime
+
+    mapPythonTime = time.time()
+    #Run serial MapReduce
+    mapPythonTime = time.time() - mapPythonTime
+
+在输出中，我们打印了执行时间： ::
+
+   futures.map in SCOOP executed in 8.459s with result: 332833500
+   map Python executed in: 10.034s with result: 332833500
+
+为了得到比较明显的时间比较，我们在 ``simulatedWordload`` 函数中引入了 ``time.sleep`` 来延长计算时间。 ::
+
+    def simulateWorkload(inputData, chose=None):
+        time.sleep(0.01)
+        return sum(inputData)
+
+SCOOP 版本的 MapReduce 如下： ::
+
+    res = futures.mapReduce(
+        simulateWorkload,
+        operator.add,
+        list([a] * a for a in range(1000)),
+    )
+
+``futures.mapReduce`` 函数需要以下参数：
+
+- ``simulateWork`` : 这是要执行的 Futures，注意这个 callable 必须有返回值。
+- ``operator.add`` : 此函数将会在 reduce 操作的时候调用，必须接收两个参数，返回一个值。
+- ``list(...)`` : 一个可迭代对象，其中每一个元素都会传给 callable 对象作为 Future。
+
+使用 Python 内置函数实现的 MapReduce 如下： ::
+
+    res = sum(map(simulateWorkload,
+                  list([a] * a for a in range(1000))))
+ 
+Python 内置的 ``map()`` 函数接受两个参数： ``simulateWorkload`` 函数和可迭代的 ``list()`` 对象。Reduce 操作我们只是简单地用 Python 内置的 ``sum()`` 函数。
