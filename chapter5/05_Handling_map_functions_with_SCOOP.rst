@@ -32,4 +32,62 @@ Python 的函数 ``map(aFunction, aSequence)`` 将在序列的每一个元素上
 |ready|
 -------
 
+SCOOP 模块提供了多个 map 函数可以将异步计算任务下发到多个计算节点：
 
+- ``futures.map((func, iterables, kargs)`` : 此函数返回一个生成器，可以按照输入的顺序遍历结果。可以说是内置 ``map`` 函数的一个并行执行版本。
+- ``futures.map_as_completed(func, iterables, kargs)`` : 每当有结果出现时，就立刻 yield 出来。
+- ``futures.scoop.futures.mapReduce(mapFunc, reductionOp, iterables, kargs)`` : map 函数执行过后可以通过此函数执行 reduction 函数。返回结果是一个元素。
+
+|how|
+-----
+
+在这个例子中，我们将对比 SCOOP 实现 MapReduce 的多个版本： ::
+
+    """
+    Compare SCOOP MapReduce with a serial implementation
+    """
+    import operator
+    import time
+    from scoop import futures
+
+    def simulateWorkload(inputData):
+        time.sleep(0.01)
+        return sum(inputData)
+
+    def CompareMapReduce():
+        mapScoopTime = time.time()
+        res = futures.mapReduce(
+            simulateWorkload,
+            operator.add,
+            list([a] * a for a in range(1000)),
+        )
+        mapScoopTime = time.time() - mapScoopTime
+        print("futures.map in SCOOP executed in {0:.3f}s 
+               with result:{1}".format(mapScoopTime, res)
+             )
+        mapPythonTime = time.time()
+        res = sum(map(simulateWorkload, list([a] * a for a in range(1000))))
+        mapPythonTime = time.time() - mapPythonTime
+        print("map Python executed in: {0:.3f}s with result: {1}".format(
+            mapPythonTime, res))
+
+    if __name__ == '__main__':
+        CompareMapReduce()
+
+这段代码通过以下代码来执行： ::
+
+    python -m scoop map_reduce.py
+    > [2015-06-12 20:13:25,602] launcher  INFO    SCOOP 0.7.2 dev on win32
+    using Python 3.4.3 (v3.4.3:9b73f1c3e601, Feb 24 2015, 22:43:06) [MSC
+    v.1600 32 bit (Intel)], API: 1013
+    [2015-06-12 20:13:25,602] launcher  INFO Deploying 2 worker(s) over 1
+    host(s).
+    [2015-06-12 20:13:25,602] launcher  INFO Worker d--istribution:
+    [2015-06-12 20:13:25,602] launcher  INFO 127.0.0.1:       1 + origin
+    Launching 2 worker(s) using an unknown shell.
+    futures.map in SCOOP executed in 8.459s with result: 332833500
+    map Python executed in: 10.034s with result: 332833500
+    [2015-06-12 20:13:45,344] launcher  (127.0.0.1:2559) INFO
+    is done.
+    [2015-06-12 20:13:45,368] launcher  (127.0.0.1:2559) INFO
+    cleaning spawned subprocesses.
