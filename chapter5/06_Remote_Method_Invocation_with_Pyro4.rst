@@ -1,4 +1,24 @@
 使用Pyro4进行远程方法调用
 =========================
 
-Python Remote Objects (Pyro4) 实现了类似 Java 的远程方法调用（Remote Method Invocation, RMI). 可以调用一个远程对象（存在于另一个进程中，甚至是另一台机器上），就像调用本地对象一样（处于和调用者一样的进程）。
+Python Remote Objects (Pyro4) 实现了类似 Java 的远程方法调用（Remote Method Invocation, RMI). 可以调用一个远程对象（存在于另一个进程中，甚至是另一台机器上），就像调用本地对象一样（处于和调用者一样的进程）。从概念的角度讲，RMI 的技术可以追溯到远程过程调用（remote procedure call，RPC），RMI 是远程过程调用技术针对面向对象范式进行改造——方法替换过程。在面向对象系统中，对远程方法调用使用这样一种机制可以在项目的统一性和对称性上有很多优势，因为这样我们可以复用同一应用不同对象或方法之间调用的模型。
+
+.. image:: ../images/RMI.png
+
+从图中可以看出，Pyro4 用客户端/服务器的方式来管理和分发对象。Pyro4 可以将客户端调用转换为远程对象调用。在调用的过程中，有两个重要的角色，一个是客户端，一个是服务客户端调用的服务器。Pyro4 以分布式的形式提供这种服务。
+
+|ready|
+-------
+
+安装非常简单，使用 pip 即可： ::
+
+    pip install pyro
+
+或者可以从 https://github.com/irmen/Pyro4 下载源代码，使用 ``setup.py`` 安装。
+
+本例中将使用 Python3.3 版本和 Windows 系统。
+
+|how|
+-----
+
+
