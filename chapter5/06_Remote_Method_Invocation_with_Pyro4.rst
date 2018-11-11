@@ -21,4 +21,71 @@ Python Remote Objects (Pyro4) 实现了类似 Java 的远程方法调用（Remot
 |how|
 -----
 
+在本例中，我们将使用 Pyro4 构建简单的服务器客户端通信。其中， ``server`` 部分的代码如下： ::
+
+   import Pyro4
+
+   class Server(object):
+       def welcomeMessage(self, name):
+           return ("Hi welcome " + str (name))
+
+   def startServer():
+       server = Server()
+       daemon = Pyro4.Daemon()
+       ns = Pyro4.locateNS()
+       uri = daemon.register(server)
+       ns.register("server", uri)
+       print("Ready. Object uri =", uri)
+       daemon.requestLoop()
+
+   if __name__ == "__main__":
+       startServer()
+
+``client.py`` 的代码如下： ::
+
+   import Pyro4
+   uri = input("What is the Pyro uri of the greeting object? ").strip()
+   name = input("What is your name? ").strip()
+   server = Pyro4.Proxy("PYRONAME:server")
+   print(server.welcomeMessage(name))
+
+我们需要跑一个 name server 来运行这段代码，从命令行输入： ::
+
+   python  -m Pyro4.naming
+
+将看到一下信息：
+
+.. image:: ../images/Page-190-Image-27.png
+
+看到这样的输入就表示 name server 已经成功运行了。接下来要分别在两个窗口中启动 Server 和 Client。运行 Server，使用下面的命令： ::
+
+   python server.py
+
+可以看到类似下面的输出：
+
+.. image:: ../images/Page-190-Image-28.png
+
+然后使用下面的命令运行客户端： ::
+
+   python client.py
+
+将会看到类似下面的输出： ::
+
+   insert the PYRO4 server URI (help : PYRONAME:server)
+
+这表示你需要输入 Pyro4 服务的名字，输入 ``PYRONAME: server`` 即可。 ::
+
+   insert the PYRO4 server URI (help : PYRONAME:server) PYRONAME:server
+
+然后将会看到以下命令要求输入名字： ::
+
+   What is your name? Rashmi
+
+最后，你将会看到欢迎信息： ``Hi welcome Rashmi`` .类似下面这样。
+
+.. image:: ../images/Page-191-Image-29.png
+
+|work|
+------
+
 
