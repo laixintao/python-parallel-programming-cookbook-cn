@@ -88,4 +88,25 @@ Python Remote Objects (Pyro4) 实现了类似 Java 的远程方法调用（Remot
 |work|
 ------
 
+Server 中包含可以被远程调用的对象，在我们的例子中，这个对象只有一个方法 ``welcomeMessage()`` 返回一个字符串。 ::
 
+   class Server(object):
+       def welcomeMessage(self, name):
+           return ("Hi welcome " + str (name))
+
+要启动这个 Server，必须按照以下步骤：
+
+1. 实例化一个 Server 对象（名字叫 ``server`` ): ``server = Server()`` 。
+2. 启动 Pyro4 守护进程： ``daemon = Pyro4.Daemon()`` . Pyro4 的守护进程对象将收到的请求分发到合适的对象。每一个 Server 都必须有一个守护进程，来管理对象的调用。每一个 Server 的守护进程都知道其他进程的可调用对象。
+3. 然后我们必须运行一个 name server，并且拿到这个 name server 的地址： ``ns = Pyro4.locateNS()`` 。
+4. 然后将这个 server 注册为 Pyro4 的对象，只有 Pyro4 的守护进程才知道这个对象： ``uri = daemon.register(server)`` . 它返回注册对象的 URI。
+5. 最后，我们可以在 name server 中给这个对象注册一个名字。
+6. 这个函数的最后是调用守护进程的 ``eventloop`` ,它会启动 server 的事件循环，等待调用。
+
+Pyro4 的 API 让开发者可以通过透明的方式分发对象。客户端请求服务器执行 ``welcomeMessage()`` 方法。远程调用先会创建一个代理对象，Pyro4 的客户端会通过代理对象将方法调用转发到远程对象，并将结果转发回调用的代码。 ::
+
+   server = Pyro4.Proxy("PYRONAME:server")
+
+现在，我们就可以调用 server 的方法，打印欢迎信息了。 ::
+
+   print(server.welcomeMessage(name))
