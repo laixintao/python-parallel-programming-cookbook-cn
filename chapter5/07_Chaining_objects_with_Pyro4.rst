@@ -96,3 +96,18 @@
                 result = self.next.process(message)
                 result.insert(0, "passed on from " + self.name)
                 return result
+
+执行这段代码，首先要启动 Pyro4 name server： ::
+
+    C:>python -m Pyro4.naming
+    Not starting broadcast server for localhost.
+    NS running on localhost:9090 (127.0.0.1)
+    Warning: HMAC key not set. Anyone can connect to this server!
+    URI = PYRO:Pyro.NameServer@localhost:9090
+
+然后运行其他三个 server，在三个不同的命令行中运行 ``python server_name.py`` 命令。
+
+server_1 的信息如下：
+
+.. images:: ../images/Page-196-Image-30.png
+
