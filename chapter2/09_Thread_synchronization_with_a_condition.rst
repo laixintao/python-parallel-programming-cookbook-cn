@@ -81,6 +81,14 @@
 |work|
 ------
 
+(译者在这里添加一段。乍一看这段代码好像会死锁，因为 ``condition.acquire()`` 之后就在 ``.wait()`` 了，好像会一直持有锁。其实 ``.wait()`` 会将锁释放，然后等待其他线程 ``.notify()`` 之后会重新尝试获得锁。但是要注意 ``.notify()`` 并不会自动释放锁，所以代码中有两行，先 ``.notify()`` 然后再 ``.release()`` 。
+
+译者画了一张图，方便大家理解。这里的过程应该是这样子的（注意 ``wait()`` 里面实际有一个释放锁重新获得锁的过程）：
+
+.. image:: ../images/python-condition.png
+
+译者的私货完毕，建议看一下官方文档： https://docs.python.org/3/library/threading.html )
+
 消费者通过拿到锁来修改共享的资源 ``items[]`` ： ::
 
         condition.acquire()
