@@ -130,3 +130,70 @@ Python对条件同步的实现很有趣。如果没有已经存在的锁传给�
                lock = RLock()
             self.__lock = lock
 
+
+(以下又是笔者的私货，最近看到一道面试题是这样的，开3个线程按照顺序打印ABC 10次。正好是 Condition 的使用场景。我把我写的代码贴在这里供大家参考。 ::
+
+   # -*- coding: utf-8 -*-
+
+   """
+   Three threads print A B C in order.
+   """
+
+
+   from threading import Thread, Condition
+
+   condition = Condition()
+   current = "A"
+
+
+   class ThreadA(Thread):
+       def run(self):
+           global current
+           for _ in range(10):
+               with condition:
+                   while current != "A":
+                       condition.wait()
+                   print("A")
+                   current = "B"
+                   condition.notify_all()
+
+
+   class ThreadB(Thread):
+       def run(self):
+           global current
+           for _ in range(10):
+               with condition:
+                   while current != "B":
+                       condition.wait()
+                   print("B")
+                   current = "C"
+                   condition.notify_all()
+
+
+   class ThreadC(Thread):
+       def run(self):
+           global current
+           for _ in range(10):
+               with condition:
+                   while current != "C":
+                       condition.wait()
+                   print("C")
+                   current = "A"
+                   condition.notify_all()
+
+
+   a = ThreadA()
+   b = ThreadB()
+   c = ThreadC()
+
+   a.start()
+   b.start()
+   c.start()
+
+   a.join()
+   b.join()
+   c.join()
+
+原理很简单，就是线程拿到锁先检查是不是自己渴望的状态。比如打印“B”的线程，渴望的状态 ``current = 'B'`` 然后打印出B，将状态改成 ``C`` ，这样就成了打印“C”的线程渴望的状态。
+
+但是这里不能唤醒指定的线程，只好唤醒所有的线程，让他们自己再检查一遍状态了。）
