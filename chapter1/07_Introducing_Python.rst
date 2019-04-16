@@ -42,7 +42,7 @@ Python可以从这里下载：https://www.python.org/downloads/
 
 下面来看一下其他的例子：
 
-- 复数： ::
+- 复数(译者注：这里原书 ``abs(a) = 5`` ，应该是错了）： ::
 
 		>>> a=1.5+0.5j
 		>>> a.real
@@ -50,7 +50,7 @@ Python可以从这里下载：https://www.python.org/downloads/
 		>>> a.imag
 		0.5
 		>>> abs(a)  # sqrt(a.real**2 + a.imag**2)
-		5.0
+                1.5811388300841898
 
 - 字符串操作： ::
 
