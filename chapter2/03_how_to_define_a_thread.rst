@@ -49,7 +49,7 @@
 |work|
 ------
 
-导入内置threading模块，简单地使用pyhton命令就可以了： ::
+导入内置threading模块，简单地使用python命令就可以了： ::
 
     import threading
 
