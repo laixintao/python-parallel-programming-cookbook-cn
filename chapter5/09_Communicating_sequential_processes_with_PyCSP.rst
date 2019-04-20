@@ -16,4 +16,19 @@ PyCSP 允许多种不同的 channel 类型: One2One, One2Any, Any2One, Any2Any. 
 |ready|
 -------
 
+PyCSP 可以通过 pip 用以下命令安装： ::
+
+   pip install python-csp
+
+Github 也有库的源码: https://github.com/futurecore/python-csp .
+
+下载之后在项目目录执行以下命令来安装： ::
+
+   python setup.py install
+
+在本例子中，我们使用 Python2.7 .
+
+|how|
+-----
+
 
