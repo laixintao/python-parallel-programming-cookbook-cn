@@ -15,16 +15,7 @@ jobs:
       - run: cat sphinx-doctest.warnings.log
       - run:
           name: Check error
-          command: |
-            grep -q "ERROR:" sphinx-doctest.warnings.log
-            exit 1
-      - run: 
-          name: Check warning
-          command: |
-            grep -q "WARNING:" sphinx-doctest.warnings.log
-            exit 1
-      - store_artifacts:
-          path: sphinx-doctest.warnings.log
+          command: if grep -q "ERROR|WARNING" sphinx-doctest.warnings.log; then exit 1 ;else exit 0 ;fi
 workflows:
   version: 2
   build_and_test:
