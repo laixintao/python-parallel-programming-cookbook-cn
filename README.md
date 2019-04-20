@@ -1,10 +1,17 @@
 # 《Python Parallel Programming Cookbook》翻译计划
 
-在线阅读：http://python-parallel-programmning-cookbook.readthedocs.io/ [![Documentation Status](https://readthedocs.org/projects/python-parallel-programmning-cookbook/badge/?version=latest)](http://python-parallel-programmning-cookbook.readthedocs.io/zh_CN/latest/?badge=latest)
+在线阅读：http://python-parallel-programmning-cookbook.readthedocs.io/
+
+Read the doc编译状态: [![Documentation Status](https://readthedocs.org/projects/python-parallel-programmning-cookbook/badge/?version=latest)](http://python-parallel-programmning-cookbook.readthedocs.io/zh_CN/latest/?badge=latest) CircleCI状态: [![CircleCI](https://circleci.com/gh/laixintao/python-parallel-programming-cookbook-cn.svg?style=svg)](https://circleci.com/gh/laixintao/python-parallel-programming-cookbook-cn)
 
 本书结合Python讨论了线程、进程和异步编程三种模型，是Python并行编程不错的参考书籍。
 
-目前进度： 80%
+译者平时主要写 Python，职业是 SRE(Devops)。大学期间给 CSDN 兼职翻译了很多文章（有稿费），给 Importnew 和 伯乐在线也翻译了很多文章（没有稿费）。这本书是业余时间翻译的，所以没办法保证完成时间，但是感觉圣诞节之前差不多能完成。
+
+由于时间仓促、经常加班、心情不好、个人专业深度有限，所以文中出现错误在所难免。鼓励读者自己尝试运行书中的代码，如果发现错误、错别字等欢迎提交 PR，Issue 也行。
+
+本书绝大部分尊重原著，译者忍不住会在书中卖弄自己的小聪明宣扬自己的人生观，这些一般都会加特殊的标注。
+
 
 ## 如何参与翻译？
 
@@ -31,7 +38,3 @@ Fork本仓库，翻译一小部分内容即可（例如标题），然后向本�
 ## 需要注意的问题(!)
 
 1. 如果使用了特殊字符可能编译 pdf 或者 epub 的过程中会出错（LaTex比较难搞），比如[这个commit](https://github.com/laixintao/python-parallel-programming-cookbook-cn/commit/6ea2c41ded6020c37756022cec2dc8159bc8666b) 的[这个编译](http://readthedocs.org/projects/python-parallel-programmning-cookbook/builds/7524187/)就有问题。
-
-## 阿里巴巴招聘Python
-
-阿里巴巴招 Python 开发，具体jd可以看[JD](jd.md)。简历发到我的邮箱即可，注明来自此项目。

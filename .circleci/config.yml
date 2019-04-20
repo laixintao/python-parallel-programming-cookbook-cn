@@ -1,0 +1,23 @@
+version: 2
+jobs:
+  test_make:
+    docker:
+      - image: circleci/python:3
+    steps:
+      - checkout
+      - run: 
+          name: Install dependency
+          command: |
+            echo 'export PATH="$PATH":"$HOME"/.local/bin' >> $BASH_ENV
+            source $BASH_ENV
+            pip install --user -r requirements.txt
+      - run: sphinx-build . _build -w sphinx-doctest.warnings.log
+      - run: cat sphinx-doctest.warnings.log
+      - run:
+          name: Check error
+          command: if grep -q "ERROR|WARNING" sphinx-doctest.warnings.log; then exit 1 ;else exit 0 ;fi
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - test_make
