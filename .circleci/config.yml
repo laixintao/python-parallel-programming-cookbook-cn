@@ -6,8 +6,9 @@ jobs:
     steps:
       - checkout
       - run: pip install --user -r requirements.txt
-      - run: make html
-      - run: make epub
+      - run: sphinx-build . _build -w sphinx-doctest.warnings.log
+      - run: grep -q "ERROR:" sphinx-doctest.warnings.log || exit 1
+      - run: grep -q "WARNING:" sphinx-doctest.warnings.log || exit 1
 workflows:
   version: 2
   build_and_test:
