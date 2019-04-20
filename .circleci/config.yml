@@ -1,0 +1,14 @@
+version: 2
+jobs:
+  test_make:
+    docker:
+      - image: circleci/python:3
+    steps:
+      - checkout
+      - run: pip install --user -r requirements.txt
+      - run: make
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - test_make
