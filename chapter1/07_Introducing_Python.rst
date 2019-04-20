@@ -120,12 +120,12 @@ Python可以从这里下载：https://www.python.org/downloads/
 
 - 定义函数： ::
 
-		>>> def fib(n):		# 生成n以内的菲波那切数列
-		...		"""Print a Fibonacci series up to n."""
-		...		a, b = 0, 1
-		...		while b < n:
-		...			print (b),
-		...			a, b = b, a+b
+		>>> def fib(n):  # 生成n以内的菲波那切数列
+		...    """Print a Fibonacci series up to n."""
+		...    a, b = 0, 1
+		...    while b < n:
+		...        print(b),
+		...        a, b = b, a+b
 		>>> # Now call the function we just defined:
 		... fib(2000)
 		1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 987 1597
@@ -142,9 +142,9 @@ Python可以从这里下载：https://www.python.org/downloads/
 - 定义类： ::
 
 		>>> class Complex:
-		... def __init__(self, realpart, imagpart):
-		...     self.r = realpart
-		...     self.i = imagpart
+		...     def __init__(self, realpart, imagpart):
+		...         self.r = realpart
+		...         self.i = imagpart
 		...
 		>>> x = Complex(3.0, -4.5)
 		>>> x.r, x.i
