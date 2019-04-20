@@ -6,15 +6,16 @@ jobs:
     steps:
       - checkout
       - run: 
-        name: Install dependency
-        command: |
-          echo 'export PATH="$PATH":"$HOME"/.local/bin' >> $BASH_ENV 
-          source $BASH_ENV
-          pip install --user -r requirements.txt
+          name: Install dependency
+          command: |
+            echo 'export PATH="$PATH":"$HOME"/.local/bin' >> $BASH_ENV
+            source $BASH_ENV
+            pip install --user -r requirements.txt
       - run: sphinx-build . _build -w sphinx-doctest.warnings.log
       - run: grep -q "ERROR:" sphinx-doctest.warnings.log || exit 1
       - run: grep -q "WARNING:" sphinx-doctest.warnings.log || exit 1
-      - store_test_results: sphinx-doctest.warnings.log
+      - store_test_results:
+          path: sphinx-doctest.warnings.log
 workflows:
   version: 2
   build_and_test:
