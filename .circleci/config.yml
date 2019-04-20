@@ -5,10 +5,11 @@ jobs:
       - image: circleci/python:3
     steps:
       - checkout
-      - run: pip install --user -r requirements.txt
+      - run: echo 'export PATH="$PATH":"$HOME"/.local/bin' >> $BASH_ENV && pip install --user -r requirements.txt
       - run: sphinx-build . _build -w sphinx-doctest.warnings.log
       - run: grep -q "ERROR:" sphinx-doctest.warnings.log || exit 1
       - run: grep -q "WARNING:" sphinx-doctest.warnings.log || exit 1
+      - store_artifacts: sphinx-doctest.warnings.log
 workflows:
   version: 2
   build_and_test:
