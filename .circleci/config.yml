@@ -12,6 +12,7 @@ jobs:
             source $BASH_ENV
             pip install --user -r requirements.txt
       - run: sphinx-build . _build -w sphinx-doctest.warnings.log
+      - run: cat sphinx-doctest.warnings.log
       - run: grep -q "ERROR:" sphinx-doctest.warnings.log || exit 1
       - run: grep -q "WARNING:" sphinx-doctest.warnings.log || exit 1
       - store_artifacts:
