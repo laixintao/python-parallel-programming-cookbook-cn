@@ -13,8 +13,16 @@ jobs:
             pip install --user -r requirements.txt
       - run: sphinx-build . _build -w sphinx-doctest.warnings.log
       - run: cat sphinx-doctest.warnings.log
-      - run: grep -q "ERROR:" sphinx-doctest.warnings.log || exit 1
-      - run: grep -q "WARNING:" sphinx-doctest.warnings.log || exit 1
+      - run:
+          name: Check error
+          command: |
+            grep -q "ERROR:" sphinx-doctest.warnings.log
+            exit 1
+      - run: 
+          name: Check warning
+          command: |
+            grep -q "WARNING:" sphinx-doctest.warnings.log
+            exit 1
       - store_artifacts:
           path: sphinx-doctest.warnings.log
 workflows:
