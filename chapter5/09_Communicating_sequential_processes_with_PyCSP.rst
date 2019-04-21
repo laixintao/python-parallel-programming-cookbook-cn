@@ -77,3 +77,5 @@ Github 也有库的源码: https://github.com/futurecore/python-csp .
 ------
 
 CSP是一种用于描述并发进程交互的语言。在数学中被称为代数过程。它在实践中被用作规范和验证各种系统的竞争条件的工具。 CSP启发的编程语言Occam的现在被广泛用作并行编程语言。
+
+   对 CSP 有兴趣的同学，建议阅读霍尔的原著： http://www.usingcsp.com/cspbook.pdf .
