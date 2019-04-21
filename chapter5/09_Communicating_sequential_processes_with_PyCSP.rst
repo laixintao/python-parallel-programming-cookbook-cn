@@ -16,6 +16,8 @@ PyCSP 允许多种不同的 channel 类型: One2One, One2Any, Any2One, Any2Any. 
 |ready|
 -------
 
+(译者注：本文使用的 python-csp 已经发生了比较大的变化， 文中的代码可能已经无法运行）
+
 PyCSP 可以通过 pip 用以下命令安装： ::
 
    pip install python-csp
@@ -31,4 +33,47 @@ Github 也有库的源码: https://github.com/futurecore/python-csp .
 |how|
 -----
 
+在第一个例子中，我们会先介绍 PyCSP 中的基本概念，processes 和 channels. 我们将定义两个进程，分别是 counter 和 printer. 下面我们来看如何定义这两个进程之间的通信过程。
 
+参考下面的代码： ::
+
+   # -*- coding: utf-8 -*-
+   from pycsp.parallel import *
+
+   @process
+   def processCounter(cout, limit):
+       for i in xrange(limit):
+           cout(i)
+       poison(cout)
+
+   @process
+   def processPrinter(cin):
+       while True:
+           print cin(),
+
+   A = Channel('A')
+
+   Parallel(
+       processCounter(A.writer(), limit=5),
+       processPrinter(A.reader())
+   )
+
+   shutdown()
+
+在 Python2.7 中的运行结果如下： ::
+
+   Python 2.7.9 (default, Dec 10 2014, 12:28:03) [MSC v.1500 64 bit (AMD64)] on win32
+   Type "copyright", "credits" or "license()" for more information. 
+   >>> ========================RESTART ==========================
+   >>> 
+   0 1 2 3 4
+
+|work|
+------
+
+// TODO
+
+|more|
+------
+
+CSP是一种用于描述并发进程交互的语言。在数学中被称为代数过程。它在实践中被用作规范和验证各种系统的竞争条件的工具。 CSP启发的编程语言Occam的现在被广泛用作并行编程语言。
