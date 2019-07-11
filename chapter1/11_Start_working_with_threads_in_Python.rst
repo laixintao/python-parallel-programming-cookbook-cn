@@ -48,7 +48,7 @@
         # end the main process
         print("Process Ended")
 
-运行上面的代码，需要用Python IDE打开 ``calling_Process.py`` 然后按下 F5.
+运行上面的代码，需要用Python IDE打开 ``helloPythonWithThreads.py`` 然后按下 F5.
 
 在Python shell中你将看到以下输出：
 
