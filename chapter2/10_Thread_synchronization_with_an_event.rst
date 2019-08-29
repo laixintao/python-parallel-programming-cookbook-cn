@@ -30,7 +30,7 @@
                     print('Consumer notify : %d popped from list by %s' % (item, self.name))
          
         class producer(Thread):
-            def __init__(self, integers, event):
+            def __init__(self, items, event):
                 Thread.__init__(self)
                 self.items = items
                 self.event = event
