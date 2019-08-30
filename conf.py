@@ -122,10 +122,13 @@ htmlhelp_basename = "python-parallel-programming-cookbook-cndoc"
 
 latex_elements = {
     "preamble": """
-\\hypersetup{unicode=true}
-\\usepackage{CJKutf8}
-\\AtBeginDocument{\\begin{CJK}{UTF8}{gbsn}}
-\\AtEndDocument{\\end{CJK}}
+\\usepackage{xeCJK}
+\\usepackage{indentfirst}
+\\setlength{\\parindent}{2em}
+\\setCJKmainfont{Noto Serif CJK SC}
+\\setCJKmonofont[Scale=0.9]{Noto Sans Mono CJK SC}
+\\setCJKfamilyfont{song}{Noto Sans CJK SC}
+\\setCJKfamilyfont{sf}{Noto Sans CJK SC}
 """
 }
 
