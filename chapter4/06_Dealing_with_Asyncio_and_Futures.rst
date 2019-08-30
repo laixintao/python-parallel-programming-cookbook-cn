@@ -42,7 +42,7 @@ Asyncio 模块的另一个重要的组件是 ``Future`` 类。它和 ``concurren
             count = 0
             for i in range(1, N + 1):
                 count = count + i
-            yield from asyncio.sleep(4)
+            yield from asyncio.sleep(3)
             future.set_result("first coroutine (sum of N integers) result = " + str(count))
 
         @asyncio.coroutine
@@ -50,7 +50,7 @@ Asyncio 模块的另一个重要的组件是 ``Future`` 类。它和 ``concurren
             count = 1
             for i in range(2, N + 1):
                 count *= i
-            yield from asyncio.sleep(3)
+            yield from asyncio.sleep(4)
             future.set_result("second coroutine (factorial) result = " + str(count))
 
         def got_result(future):
