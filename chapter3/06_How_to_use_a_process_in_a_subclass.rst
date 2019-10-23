@@ -55,7 +55,8 @@
                 return
 
 在主程序中，我们创建了一些 ``MyProcess()`` 的子类。当 ``start()`` 方法被调用的时候进程开始执行： ::                
-        p = MyProcess()
+
+	p = MyProcess()
         p.start()
 
 ``join()`` 命令可以让主进程等待其他进程结束最后退出。
