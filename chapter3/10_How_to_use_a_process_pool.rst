@@ -51,4 +51,4 @@
 
     print ('Pool    :', pool_outputs)
 
-需要注意的是， ``pool.map()`` 方法的记过和Python内置的 ``map()`` 结果是相同的，不同的是 ``pool.map()`` 是通过多个并行进程计算的。    
+需要注意的是， ``pool.map()`` 方法的结果和Python内置的 ``map()`` 结果是相同的，不同的是 ``pool.map()`` 是通过多个并行进程计算的。    
