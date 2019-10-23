@@ -56,4 +56,4 @@ Remote Python Call(RPyC)是一个用作远程过程调用，同时也可以用�
 
 下来，我们执行了这条语句： ``c.execute("print('hi python cookbook')")`` 。
 
-这条语句就会在服务器上执行print语句(远程的``exec``语句)。
+这条语句就会在服务器上执行print语句(远程的 ``exec`` 语句)。

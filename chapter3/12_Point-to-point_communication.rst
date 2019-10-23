@@ -15,7 +15,7 @@ Python的 ``mpi4py`` 通过下面两个函数提供了点对点通讯功能：
 |how|
 -----
 
-下面的例子展示了如何使用 ``comm.send`` 和 ``comm,recv`` 指令在不同的进程之间交换信息。 ::
+下面的例子展示了如何使用 ``comm.send`` 和 ``comm.recv`` 指令在不同的进程之间交换信息。 ::
 
         from mpi4py import MPI
         comm = MPI.COMM_WORLD

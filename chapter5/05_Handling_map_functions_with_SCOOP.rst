@@ -34,7 +34,7 @@ Python 的函数 ``map(aFunction, aSequence)`` 将在序列的每一个元素上
 
 SCOOP 模块提供了多个 map 函数可以将异步计算任务下发到多个计算节点：
 
-- ``futures.map((func, iterables, kargs)`` : 此函数返回一个生成器，可以按照输入的顺序遍历结果。可以说是内置 ``map`` 函数的一个并行执行版本。
+- ``futures.map(func, iterables, kargs)`` : 此函数返回一个生成器，可以按照输入的顺序遍历结果。可以说是内置 ``map`` 函数的一个并行执行版本。
 - ``futures.map_as_completed(func, iterables, kargs)`` : 每当有结果出现时，就立刻 yield 出来。
 - ``futures.scoop.futures.mapReduce(mapFunc, reductionOp, iterables, kargs)`` : map 函数执行过后可以通过此函数执行 reduction 函数。返回结果是一个元素。
 

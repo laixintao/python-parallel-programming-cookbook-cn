@@ -54,7 +54,8 @@
                 print ('called run method in process: %s' % self.name)
                 return
 
-在主程序中，我们创建了一些 ``MyProcess()`` 的子类。当 ``start()`` 方法被调用的时候进程开始执行： ::                
+在主程序中，我们创建了一些 ``MyProcess()`` 的子类。当 ``start()`` 方法被调用的时候进程开始执行： ::
+
         p = MyProcess()
         p.start()
 
