@@ -17,7 +17,7 @@
 - ``args``: 传递给 ``target`` 的参数，要试用tuple类型
 - ``kwargs``: 同上，试用字段类型dict
 
-创建线程的方法非常实用，通过参数和目标告诉线程应该做什么。下面这个例子传递一个数字给线程（这个数字正好等于线程号码），目标函数会打印出这个数字。
+创建线程的方法非常实用，通过`target`参数、`arg`和`kwarg`告诉线程应该做什么。下面这个例子传递一个数字给线程（这个数字正好等于线程号码），目标函数会打印出这个数字。
 
 |how|
 -----
@@ -29,7 +29,7 @@
         def function(i):
             print ("function called by thread %i\n" % i)
             return
-
+            
         threads = []
 
         for i in range(5):
