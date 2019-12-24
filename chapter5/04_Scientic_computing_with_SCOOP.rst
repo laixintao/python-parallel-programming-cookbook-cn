@@ -54,8 +54,7 @@ SCOOP 内置了很多适用于科学计算场景的功能，可以解决很多�
           return points_fallen_in_unit_disk
 
     def pi_calculus_with_Montecarlo_Method(workers, attempts):
-        print("number of workers %i - number of attempts %i"
-      %(workers,attempts))
+        print("number of workers %i - number of attempts %i" % (workers,attempts))
         bt = time()
         #in this point we call scoop.futures.map function
         #the evaluate_number_of_points_in_unit_circle \
