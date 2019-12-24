@@ -34,13 +34,13 @@ SCOOP 支持 Linux, Mac, 和 Windows 平台。和 Disco 一样，它的远程访
 
 SCOOP 内置了很多适用于科学计算场景的功能，可以解决很多需要很多算力的科学问题。本文将以蒙特卡罗算法为例子。要说明白这个算法将占用很大的篇幅，但是在本例子中，只是想以并行执行一个蒙卡特罗算法解决问题展示 SCOOP。下面以计算 π 为例： ::
 
-   import math
-   from random import random
-   from scoop import futures
-   from time import time
+    import math
+    from random import random
+    from scoop import futures
+    from time import time
 
 
-   def evaluate_number_of_points_in_unit_circle(attempts):
+    def evaluate_points_in_circle(attempts):
       points_fallen_in_unit_disk = 0
          for i in range (0,attempts) :
               x = random()
@@ -55,7 +55,7 @@ SCOOP 内置了很多适用于科学计算场景的功能，可以解决很多�
 
     def pi_calculus_with_Montecarlo_Method(workers, attempts):
         print("number of workers %i - number of attempts %i"
-      %(rkers,attempts))
+      %(workers,attempts))
         bt = time()
         #in this point we call scoop.futures.map function
         #the evaluate_number_of_points_in_unit_circle \
@@ -66,15 +66,15 @@ SCOOP 内置了很多适用于科学计算场景的功能，可以解决很多�
                            [attempts] * workers)
         taskresult= sum(evaluate_task)
         print ("%i points fallen in a unit disk after " \
-               %(Taskresult/attempts))
-        piValue = (4. * Taskresult/ float(workers * attempts))
+               %(taskresult/attempts))
+        piValue = (4. * taskresult/ float(workers * attempts))
         computationalTime = time() - bt
         print("value of pi = " + str(piValue))
         print ("error percentage = " + \
                str((((abs(piValue - math.pi)) * 100) / math.pi)))
         print("total time: " + str(computationalTime))
 
-   if __name__ == "__main__":
+    if __name__ == "__main__":
       for i in range (1,4):
          # let's fix the numbers of workers...only two,
          # but it could be much greater
