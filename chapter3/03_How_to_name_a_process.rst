@@ -42,7 +42,7 @@
 |work|
 ------
 
-这个过程明明线程很像。明明进程需要为进程对象提供 ``name`` 参数： ::
+这个过程和命名线程很像。命名进程需要为进程对象提供 ``name`` 参数： ::
 
     process_with_name = multiprocessing.Process(name='foo_process', target=foo)
 
