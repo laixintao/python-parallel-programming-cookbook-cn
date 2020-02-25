@@ -114,7 +114,7 @@
             item = random.randint(0, 256)
             self.queue.put(item)
 
-消费者进程负责使用 ``get()`` 方法从队列中移除item，并且确认队列是否为空，如果为空，就执行 ``break`` 跳出 ``whild`` 循环： ::
+消费者进程负责使用 ``get()`` 方法从队列中移除item，并且确认队列是否为空，如果为空，就执行 ``break`` 跳出 ``while`` 循环： ::
 
     def run(self):
         while True:
