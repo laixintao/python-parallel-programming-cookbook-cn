@@ -29,4 +29,8 @@ CUDA 编程中最重要的概念是 **Kernel**. 它代表了符合规范（后�
 |ready|
 -------
 
+PyCUDA 的 wiki 页面上有安装的说明： http://wiki.tiker.net/PyCuda/Installation .
 
+下面是 build Python2.7 发行版上的，32位 PyCUDA 库的方法：
+
+1. 
