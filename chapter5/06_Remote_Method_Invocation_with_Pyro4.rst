@@ -12,7 +12,7 @@ Python Remote Objects (Pyro4) 实现了类似 Java 的远程方法调用（Remot
 
 安装非常简单，使用 pip 即可： ::
 
-    pip install pyro
+    pip install pyro-ppl
 
 或者可以从 https://github.com/irmen/Pyro4 下载源代码，使用 ``setup.py`` 安装。
 
