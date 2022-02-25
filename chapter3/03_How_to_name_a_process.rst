@@ -24,8 +24,10 @@
             process_with_name = multiprocessing.Process(name='foo_process', target=foo)
             process_with_name.daemon = True  # 注意原代码有这一行，但是译者发现删掉这一行才能得到正确输出
             process_with_default_name = multiprocessing.Process(target=foo)
+            process_with_default_name.daemon = True
             process_with_name.start()
             process_with_default_name.start()
+            process_with_name.join()
             process_with_default_name.join() # 加上join()就可以了，因为子进程如果没有 join() ，主进程退出之后子进程会留在idle中，你必须手动杀死它们。而使用了设置了daemon=True的子进程会在主进程结束的时候一起结束
 
 运行上面的代码，打开终端输入:  ::
