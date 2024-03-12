@@ -54,7 +54,8 @@ Python可以从这里下载：https://www.python.org/downloads/
 
 - 字符串操作： ::
 
-		>>> word = 'Help' + 'A' >>> word
+		>>> word = 'Help' + 'A'
+		>>> word
 		'HelpA'
 		>>> word[4]
 		'A'
@@ -65,7 +66,8 @@ Python可以从这里下载：https://www.python.org/downloads/
 
 - 列表（list）操作： ::
 
-		>>> a = ['spam', 'eggs', 100, 1234] >>> a[0]
+		>>> a = ['spam', 'eggs', 100, 1234]
+		>>> a[0]
 		'spam'
 		>>> a[3]
 		1234
@@ -78,9 +80,11 @@ Python可以从这里下载：https://www.python.org/downloads/
 
 - ``while`` 循环： ::
 
-		# Fibonacci series: 
+		# Fibonacci series:
+		>>> a = 0
+		>>> b = 1
 		>>> while b < 10:
-		... 	print b
+		... 	print (b)
 		... 	a, b = b, a+b
 		...
 		1
@@ -93,26 +97,27 @@ Python可以从这里下载：https://www.python.org/downloads/
 - ``if`` 命令：
   首先我们用 ``input()`` 从键盘读入一个整数： ::
 
-		>>>x = int(input("Please enter an integer here: "))
+		>>> x = int(input("Please enter an integer here: "))
 		Please enter an integer here:
 
   然后在输入的数字中使用 ``if`` 进行判断： ::
 
-		>>>if x < 0:
-		...      print ('the number is negative')
-		...elif x == 0:
-		...      print ('the number is zero')
-		...elif x == 1:
-		...      print ('the number is one')
-		...else:
-		...      print ('More')
+		>>> if x < 0:
+		...     print ('the number is negative')
+		... elif x == 0:
+		...     print ('the number is zero')
+		... elif x == 1:
+		...     print ('the number is one')
+		... else:
+		...     print ('More')
 		...
 
 - ``for`` 循环：::
 
 		>>> # Measure some strings:
-		... a = ['cat', 'window', 'defenestrate'] >>> for x in a:
-		... print (x, len(x))
+		>>> a = ['cat', 'window', 'defenestrate'] 
+		>>> for x in a:
+		...     print (x, len(x))
 		...
 		cat 3
 		window 6
@@ -121,13 +126,13 @@ Python可以从这里下载：https://www.python.org/downloads/
 - 定义函数： ::
 
 		>>> def fib(n):  # 生成n以内的菲波那切数列
-		...    """Print a Fibonacci series up to n."""
+		...    # """Print a Fibonacci series up to n."""
 		...    a, b = 0, 1
 		...    while b < n:
 		...        print(b),
 		...        a, b = b, a+b
 		>>> # Now call the function we just defined:
-		... fib(2000)
+		>>> fib(2000)
 		1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 987 1597
 
 - 导入模块： ::
