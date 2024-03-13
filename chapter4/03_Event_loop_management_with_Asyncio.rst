@@ -67,7 +67,7 @@ Asyncio提供了一下方法来管理事件循环：
                 loop.stop()
 
         def function_4(end_time, loop):
-            print ("function_5 called")
+            print ("function_4 called")
             if (loop.time() + 1.0) < end_time:
                 loop.call_later(1, function_4, end_time, loop)
             else:
