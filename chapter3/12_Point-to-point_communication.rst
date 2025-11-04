@@ -10,7 +10,7 @@ Python的 ``mpi4py`` 通过下面两个函数提供了点对点通讯功能：
 
 ``Comm`` 变量表示交流者，定义了可以互相通讯的进程组： ::
 
-    comm = MKPI.COMM_WORLD
+    comm = MPI.COMM_WORLD
 
 |how|
 -----
