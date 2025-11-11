@@ -34,11 +34,11 @@
             grid_rows -= 1
         if (rank == 0) :
             print("Building a %d x %d grid topology:" % (grid_rows, grid_column) )
-        cartesian_communicator = comm.Create_cart( (grid_rows, grid_column), periods=(True, True), reorder=True)
+        cartesian_communicator = comm.Create_cart( (grid_rows, grid_column), periods=(False, False), reorder=True)
         my_mpi_row, my_mpi_col = cartesian_communicator.Get_coords( cartesian_communicator.rank )
         neighbour_processes[UP], neighbour_processes[DOWN] = cartesian_communicator.Shift(0, 1)
         neighbour_processes[LEFT], neighbour_processes[RIGHT] =  cartesian_communicator.Shift(1, 1)
-        print ("Process = %s row = %s column = %s ----> neighbour_processes[UP] = %s neighbour_processes[DOWN] = %s neighbour_processes[LEFT] =%s neighbour_processes[RIGHT]=%s" % (
+        print ("Process = %s row = %s column = %s ---->\n neighbour_processes[UP] = %s\n neighbour_processes[DOWN] = %s\n neighbour_processes[LEFT] = %s\n neighbour_processes[RIGHT]= %s" % (
         rank, my_mpi_row, my_mpi_col,neighbour_processes[UP],
         neighbour_processes[DOWN], neighbour_processes[LEFT],
         neighbour_processes[RIGHT]))
