@@ -42,8 +42,6 @@ Asyncio提供了一下方法来管理事件循环：
 下面的代码中，我们将展示如何使用Asyncio库提供的时间循环创建异步模式的应用。 ::
 
         import asyncio
-        import datetime
-        import time
 
         def function_1(end_time, loop):
             print ("function_1 called")
@@ -66,18 +64,10 @@ Asyncio提供了一下方法来管理事件循环：
             else:
                 loop.stop()
 
-        def function_4(end_time, loop):
-            print ("function_4 called")
-            if (loop.time() + 1.0) < end_time:
-                loop.call_later(1, function_4, end_time, loop)
-            else:
-                loop.stop()
-
         loop = asyncio.get_event_loop()
 
         end_loop = loop.time() + 9.0
         loop.call_soon(function_1, end_loop, loop)
-        # loop.call_soon(function_4, end_loop, loop)
         loop.run_forever()
         loop.close()
 
